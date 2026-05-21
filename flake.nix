@@ -8,6 +8,6 @@
   outputs =
     { self, nixpkgs }:
     {
-      lib.dotfiles = ./.default.nix;
+      lib.dotfiles = ./default.nix;
     };
 }
