@@ -34,6 +34,7 @@ in
       user.email = cfg.email;
       credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
       credential.credentialStore = "secretservice";
+      init.defaultbranch = "main";
     };
 
     # Git utilities should also be enabled
