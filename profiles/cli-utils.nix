@@ -23,8 +23,10 @@ in
       {
         home.packages = with pkgs; [
           carapace
-          starship
+          dust
           fzf
+          starship
+          tokei
           zoxide
         ];
 
