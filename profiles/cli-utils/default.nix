@@ -10,6 +10,7 @@ in
 {
   options.profiles.cli-utils = {
     enable = lib.mkEnableOption "Enable CLI utilities";
+    enablePowershellIntegration = lib.mkEnableOption "Enable Powershell integration";
     git = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -31,10 +32,13 @@ in
         ];
 
         programs.carapace.enable = true;
-        programs.starship.enable = true;
         programs.fzf.enable = true;
+        programs.starship.enable = true;
         programs.zoxide.enable = true;
       }
+      (lib.mkIf cfg.enablePowershellIntegration {
+        home.file."${config.xdg.configHome}/powershell/profile.ps1".source = ./profile.ps1;
+      })
       (lib.mkIf cfg.git {
         home.packages = with pkgs; [ gitui ];
 
