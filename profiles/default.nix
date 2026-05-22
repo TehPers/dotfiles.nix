@@ -1,6 +1,7 @@
 {
   imports = [
     ./nushell
+    ./azure.nix
     ./bash.nix
     ./cli-utils.nix
     ./git.nix
