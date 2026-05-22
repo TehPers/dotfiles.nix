@@ -17,6 +17,7 @@ in
       cargo-audit
       cargo-binstall
       cargo-deny
+      cargo-make
       cargo-update
       rustup
     ];
