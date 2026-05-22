@@ -13,7 +13,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ rustup ];
+    home.packages = with pkgs; [
+      cargo-audit
+      cargo-binstall
+      cargo-deny
+      cargo-update
+      rustup
+    ];
     home.sessionVariables = {
       CARGO_HOME = "${config.home.homeDirectory}/.cargo";
       RUSTUP_HOME = "${config.home.homeDirectory}/.rustup";
