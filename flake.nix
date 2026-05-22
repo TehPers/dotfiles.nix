@@ -1,13 +1,9 @@
 {
   description = "Personal Home Manager dotfiles";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-  };
-
   outputs =
-    { self, nixpkgs }:
+    { self }:
     {
-      lib.dotfiles = ./default.nix;
+      lib.homeManager = ./default.nix;
     };
 }
