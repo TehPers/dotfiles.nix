@@ -56,3 +56,18 @@ directly and used as a Home Manager module.
   # ...
 }
 ```
+
+## Profiles vs. roles
+
+The modules in this repository are split into profiles and roles.
+
+Profiles represent groups of configuration to enable a specific workflow. For
+example, the "rust" profile installs tools needed to develop in Rust. Profiles
+are enabled with `profile.profile-name.enable = true`. Some profiles accept
+extra configuration as well, like the "git" profile.
+
+Roles represent groups of profiles needed for an environment. For example, the
+"dev" role enables tools needed for a development environment. Roles are enabled
+with `roles.role-name.enable = true`.
+
+The "nix" profile is always enabled as it configures Nix to work with flakes.
