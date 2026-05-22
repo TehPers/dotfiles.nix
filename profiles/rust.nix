@@ -15,8 +15,8 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ rustup ];
     home.sessionVariables = {
-      CARGO_HOME = "${config.xdg.configHome}/.cargo";
-      RUSTUP_HOME = "${config.xdg.configHome}/.rustup";
+      CARGO_HOME = "${config.home.homeDirectory}/.cargo";
+      RUSTUP_HOME = "${config.home.homeDirectory}/.rustup";
     };
   };
 }
