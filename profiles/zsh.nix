@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -13,7 +12,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ zsh ];
     home.shell.enableZshIntegration = true;
 
     programs.zsh.enable = true;

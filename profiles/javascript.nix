@@ -13,19 +13,15 @@ in
     enableBoa = lib.mkEnableOption "Enable the Boa runtime";
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
-      {
-        home.packages = with pkgs; [
-          bun
-          fnm
-        ];
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      home.packages = with pkgs; ([ fnm ]);
 
-        programs.bun.enable = true;
-      }
-      (lib.mkIf cfg.enableBoa {
-        home.packages = with pkgs; [ boa ];
-      })
-    ]
-  );
+      programs.bun.enable = true;
+    })
+
+    (lib.mkIf (cfg.enable && cfg.enableBoa) {
+      home.packages = with pkgs; [ boa ];
+    })
+  ];
 }

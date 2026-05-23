@@ -19,31 +19,22 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
-      {
-        home.packages = with pkgs; [
-          carapace
-          dust
-          fzf
-          starship
-          tokei
-          zoxide
-        ];
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      home.packages = with pkgs; [
+        dust
+        tokei
+      ];
 
-        programs.carapace.enable = true;
-        programs.fzf.enable = true;
-        programs.starship.enable = true;
-        programs.zoxide.enable = true;
-      }
-      (lib.mkIf cfg.enablePowershellIntegration {
-        home.file."${config.xdg.configHome}/powershell/profile.ps1".source = ./profile.ps1;
-      })
-      (lib.mkIf cfg.git {
-        home.packages = with pkgs; [ gitui ];
+      programs.carapace.enable = true;
+      programs.fzf.enable = true;
+      programs.gitui.enable = cfg.git;
+      programs.starship.enable = true;
+      programs.zoxide.enable = true;
+    })
 
-        programs.gitui.enable = true;
-      })
-    ]
-  );
+    (lib.mkIf (cfg.enable && cfg.enablePowershellIntegration) {
+      home.file."${config.xdg.configHome}/powershell/profile.ps1".source = ./profile.ps1;
+    })
+  ];
 }

@@ -23,10 +23,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      git
-      git-credential-manager
-    ];
+    home.packages = with pkgs; [ git-credential-manager ];
 
     programs.git.enable = true;
     programs.git.settings = {
