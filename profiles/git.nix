@@ -33,8 +33,5 @@ in
       credential.credentialStore = "secretservice";
       init.defaultbranch = "main";
     };
-
-    # Git utilities should also be enabled
-    profiles.cli-utils.git = true;
   };
 }

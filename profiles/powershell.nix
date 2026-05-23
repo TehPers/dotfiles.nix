@@ -14,7 +14,5 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ powershell ];
-
-    profiles.cli-utils.enablePowershellIntegration = true;
   };
 }
