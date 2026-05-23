@@ -1,5 +1,5 @@
 # Ensure fnm is installed
-if (which fnm | is-not-empty) {
+if (which ^fnm | is-not-empty) {
     # Load environment variables
     fnm env --json | from json | load-env
 
