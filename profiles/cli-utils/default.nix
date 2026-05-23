@@ -27,8 +27,11 @@ in
       ];
 
       programs.carapace.enable = true;
+      programs.delta.enable = cfg.git;
+      programs.delta.enableGitIntegration = cfg.git;
       programs.fzf.enable = true;
       programs.gitui.enable = cfg.git;
+      programs.ripgrep.enable = true;
       programs.starship.enable = true;
       programs.zoxide.enable = true;
     })
