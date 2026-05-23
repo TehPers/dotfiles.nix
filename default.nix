@@ -1,6 +1,7 @@
 {
   imports = [
     ./profiles
+    ./programs
     ./roles
   ];
 }

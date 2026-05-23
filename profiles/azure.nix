@@ -13,21 +13,14 @@ in
     enableAzsync = lib.mkEnableOption "Enable azsync CLI";
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
-      {
-        home.packages = with pkgs; [
-          azure-cli
-          azure-cli-extensions.application-insights
-          azure-cli-extensions.bastion
-          azure-cli-extensions.ssh
-        ];
-      }
-      (lib.mkIf cfg.enableAzsync {
-        home.packages = with pkgs; [
-          (pkgs.callPackage ../packages/azsync.nix { })
-        ];
-      })
-    ]
-  );
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      azure-cli
+      azure-cli-extensions.application-insights
+      azure-cli-extensions.bastion
+      azure-cli-extensions.ssh
+    ];
+
+    programs.azsync.enable = cfg.enableAzsync;
+  };
 }
