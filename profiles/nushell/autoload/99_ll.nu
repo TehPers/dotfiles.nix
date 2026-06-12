@@ -4,7 +4,7 @@ export def ll [
 ]: nothing -> table {
   let files = ls -al $pattern | sort-by type name -i
   let names = $files
-    | each { |it| $it | grid -ic | str trim -c "\n" }
+    | each { |it| [$it] | grid -ic name | str trim -c "\n" }
     | wrap name
   $names | merge ($files | select type size modified)
 }
