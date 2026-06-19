@@ -21,10 +21,10 @@ in
       description = "Email to use in commits.";
     };
     credentialStore = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
+      type = lib.types.str;
       example = "secretservice";
       description = "The credential helper to use.";
-      default = null;
+      default = "none";
     };
   };
 
