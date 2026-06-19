@@ -20,6 +20,7 @@ in
       example = "myuser@example.com";
       description = "Email to use in commits.";
     };
+    enableGcm = lib.mkEnableOption "Enable Git credential manager";
     credentialStore = lib.mkOption {
       type = lib.types.str;
       example = "secretservice";
@@ -30,19 +31,21 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      home.packages = with pkgs; [ git-credential-manager ];
-
       programs.git.enable = true;
       programs.git.settings = {
         user.name = cfg.user;
         user.email = cfg.email;
-        credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
         init.defaultbranch = "main";
       };
     })
 
-    (lib.mkIf (cfg.enable && cfg.credentialStore != null) {
-      programs.git.settings.credential.credentialStore = cfg.credentialStore;
+    (lib.mkIf (cfg.enable && cfg.enableGcm) {
+      home.packages = with pkgs; [ git-credential-manager ];
+
+      programs.git.settings.credential = {
+        helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
+        credentialStore = cfg.credentialStore;
+      };
     })
   ];
 }
