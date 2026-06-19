@@ -20,18 +20,29 @@ in
       example = "myuser@example.com";
       description = "Email to use in commits.";
     };
-  };
-
-  config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ git-credential-manager ];
-
-    programs.git.enable = true;
-    programs.git.settings = {
-      user.name = cfg.user;
-      user.email = cfg.email;
-      credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
-      credential.credentialStore = "secretservice";
-      init.defaultbranch = "main";
+    credentialStore = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      example = "secretservice";
+      description = "The credential helper to use.";
+      default = null;
     };
   };
+
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      home.packages = with pkgs; [ git-credential-manager ];
+
+      programs.git.enable = true;
+      programs.git.settings = {
+        user.name = cfg.user;
+        user.email = cfg.email;
+        credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
+        init.defaultbranch = "main";
+      };
+    })
+
+    (lib.mkIf (cfg.enable && cfg.credentialStore != null) {
+      programs.git.settings.credential.credentialStore = cfg.credentialStore;
+    })
+  ];
 }
