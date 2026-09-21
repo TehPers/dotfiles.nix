@@ -16,17 +16,17 @@ in
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       home.packages = with pkgs; ([ fnm ]);
-    })
-
-    (lib.mkIf (cfg.enable && config.profiles.bash.enable) {
       programs.bash.bashrcExtra = ''
+        # fnm
         eval "$(fnm env --use-on-cd --shell bash)"
       '';
-    })
-
-    (lib.mkIf (cfg.enable && config.profiles.zsh.enable) {
+      profiles.powershell.profileContent = ''
+        # fnm
+        fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+      '';
       programs.zsh.initContent = ''
-        eval "$(fnm env --use-on-cd --shell bash)"
+        # fnm
+        eval "$(fnm env --use-on-cd --shell zsh)"
       '';
     })
 

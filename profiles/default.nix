@@ -1,9 +1,9 @@
 {
   imports = [
-    ./cli-utils
     ./nushell
     ./azure.nix
     ./bash.nix
+    ./cli-utils.nix
     ./git.nix
     ./javascript.nix
     ./nix.nix
